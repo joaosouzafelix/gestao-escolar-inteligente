@@ -86,7 +86,7 @@ const data = {
   }
 };
 
-// ELEMENTOS DA PÁGINA
+// ELEMENTOS
 const login = document.getElementById("login");
 const app = document.getElementById("app");
 const modulePage = document.getElementById("modulePage");
@@ -110,47 +110,35 @@ const moduleMessage = document.getElementById("moduleMessage");
 const backButton = document.getElementById("backButton");
 const logoutButton = document.getElementById("logoutButton");
 
-// TEMA CLARO E ESCURO
+// MODO CLARO E ESCURO
 const themeButtons = document.querySelectorAll(".theme-button");
 
 function atualizarTema() {
-  const temaSalvo = localStorage.getItem("vrTema");
+  const tema = localStorage.getItem("vrTema");
 
-  document.body.classList.toggle(
-    "light-mode",
-    temaSalvo === "claro"
-  );
+  document.body.classList.toggle("light-mode", tema === "claro");
 
-  atualizarBotoesTema();
-}
-
-function atualizarBotoesTema() {
-  const estaClaro = document.body.classList.contains("light-mode");
-
-  themeButtons.forEach((button) => {
-    button.textContent = estaClaro
-      ? "🌙 Modo escuro"
-      : "☀️ Modo claro";
+  themeButtons.forEach(button => {
+    button.textContent =
+      tema === "claro" ? "🌙 Modo escuro" : "☀️ Modo claro";
   });
 }
 
-themeButtons.forEach((button) => {
+themeButtons.forEach(button => {
   button.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-
-    const estaClaro =
-      document.body.classList.contains("light-mode");
+    const vaiFicarClaro =
+      !document.body.classList.contains("light-mode");
 
     localStorage.setItem(
       "vrTema",
-      estaClaro ? "claro" : "escuro"
+      vaiFicarClaro ? "claro" : "escuro"
     );
 
-    atualizarBotoesTema();
+    atualizarTema();
   });
 });
 
-// APLICA O TEMA SALVO AO ABRIR A PÁGINA
+// CARREGAR TEMA SALVO
 atualizarTema();
 
 // DATA ATUAL
@@ -164,8 +152,8 @@ function atualizarData() {
   });
 }
 
-// MOSTRAR O PAINEL
-function mostrarPainel(setor, enderecoEmail) {
+// MOSTRAR PAINEL
+function mostrarPainel(setor) {
   const perfil = data[setor];
 
   if (!perfil) {
@@ -188,7 +176,6 @@ function mostrarPainel(setor, enderecoEmail) {
 
   perfil.modulos.forEach((modulo, index) => {
     const card = document.createElement("button");
-
     card.type = "button";
     card.className = "module-card";
 
@@ -212,7 +199,7 @@ function mostrarPainel(setor, enderecoEmail) {
   });
 }
 
-// ABRIR UM MÓDULO
+// ABRIR MÓDULO
 function abrirModulo(setor, index) {
   const perfil = data[setor];
   const modulo = perfil.modulos[index];
@@ -220,7 +207,6 @@ function abrirModulo(setor, index) {
   if (!modulo) return;
 
   app.classList.add("hidden");
-  login.classList.add("hidden");
   modulePage.classList.remove("hidden");
 
   moduleProfile.textContent = perfil.nome.toUpperCase();
@@ -233,27 +219,24 @@ function abrirModulo(setor, index) {
 }
 
 // LOGIN DE DEMONSTRAÇÃO
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", event => {
   event.preventDefault();
 
-  const setorSelecionado = role.value;
-  const emailDigitado = email.value.trim();
-
-  if (!setorSelecionado || !emailDigitado) {
+  if (!role.value || !email.value.trim()) {
     alert("Preencha todos os campos.");
     return;
   }
 
-  mostrarPainel(setorSelecionado, emailDigitado);
+  mostrarPainel(role.value);
 });
 
-// VOLTAR AO PAINEL
+// VOLTAR
 backButton.addEventListener("click", () => {
   modulePage.classList.add("hidden");
   app.classList.remove("hidden");
 });
 
-// SAIR DO SISTEMA
+// SAIR
 logoutButton.addEventListener("click", () => {
   app.classList.add("hidden");
   modulePage.classList.add("hidden");

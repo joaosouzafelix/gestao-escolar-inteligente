@@ -1,154 +1,263 @@
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VR Presente | Gestão Escolar</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
+// DADOS DOS SETORES
+const data = {
+  direcao: {
+    nome: "Direção",
+    titulo: "Painel da Direção",
+    descricao: "Gerencie as principais atividades da escola.",
+    modulos: [
+      ["📊", "Visão geral", "Resumo das atividades escolares."],
+      ["👥", "Gestão de alunos", "Área de informações dos alunos."],
+      ["👨‍🏫", "Gestão de funcionários", "Organização da equipe escolar."],
+      ["📢", "Comunicados", "Publicação de avisos escolares."],
+      ["📅", "Calendário escolar", "Datas e eventos da escola."],
+      ["📈", "Relatórios", "Relatórios administrativos."]
+    ]
+  },
 
-  <!-- TELA DE LOGIN -->
-  <main id="login" class="login-screen">
-    <section class="login-card">
-      <div class="school-logo">VR</div>
-      <h1>VR <span>Presente</span></h1>
-      <p class="login-subtitle">Sistema de Gestão Escolar</p>
-      <div class="gold-line"></div>
+  secretaria: {
+    nome: "Secretaria",
+    titulo: "Painel da Secretaria",
+    descricao: "Organize os serviços administrativos.",
+    modulos: [
+      ["📝", "Matrículas", "Área de matrículas escolares."],
+      ["👥", "Cadastro de alunos", "Cadastro e consulta de alunos."],
+      ["📄", "Documentos", "Organização de documentos escolares."],
+      ["📋", "Declarações", "Emissão de declarações."],
+      ["📅", "Calendário", "Consulta de datas escolares."],
+      ["📢", "Comunicados", "Avisos da secretaria."]
+    ]
+  },
 
-      <h2>Acesse sua conta</h2>
-      <p class="muted">Selecione seu setor para continuar.</p>
+  professores: {
+    nome: "Professores",
+    titulo: "Painel dos Professores",
+    descricao: "Acesse suas ferramentas de trabalho.",
+    modulos: [
+      ["📚", "Minhas turmas", "Consulta das turmas."],
+      ["📝", "Registro de aulas", "Registro de conteúdos trabalhados."],
+      ["📊", "Notas", "Área de lançamento de notas."],
+      ["📅", "Horários", "Consulta dos horários de aulas."],
+      ["📋", "Frequência", "Registro de frequência dos alunos."],
+      ["📢", "Comunicados", "Avisos para os professores."]
+    ]
+  },
 
-      <form id="loginForm">
-        <label for="role">Setor de acesso</label>
-        <select id="role" required>
-          <option value="" selected disabled>Selecione um setor</option>
-          <option value="direcao">Direção</option>
-          <option value="secretaria">Secretaria</option>
-          <option value="professores">Professores</option>
-          <option value="pedagogos">Pedagogos</option>
-          <option value="portaria">Portaria</option>
-          <option value="lider">Líder de turma</option>
-        </select>
+  pedagogos: {
+    nome: "Pedagogos",
+    titulo: "Painel da Pedagogia",
+    descricao: "Acompanhe o desenvolvimento pedagógico.",
+    modulos: [
+      ["👨‍🎓", "Acompanhamento de alunos", "Acompanhamento escolar."],
+      ["📊", "Frequência", "Consulta de frequência."],
+      ["📚", "Planejamento", "Organização pedagógica."],
+      ["👨‍🏫", "Professores", "Acompanhamento docente."],
+      ["📋", "Ocorrências", "Registro de ocorrências escolares."],
+      ["📢", "Comunicados", "Avisos pedagógicos."]
+    ]
+  },
 
-        <label for="email">E-mail</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Digite seu e-mail"
-          required
-        >
+  portaria: {
+    nome: "Portaria",
+    titulo: "Painel da Portaria",
+    descricao: "Organize o controle de acesso escolar.",
+    modulos: [
+      ["🚪", "Entrada de alunos", "Área de controle de entrada."],
+      ["🚶", "Saída de alunos", "Área de controle de saída."],
+      ["👥", "Visitantes", "Registro de visitantes."],
+      ["📋", "Autorizações", "Consulta de autorizações."],
+      ["🕒", "Horários", "Consulta de horários."],
+      ["📢", "Comunicados", "Avisos da portaria."]
+    ]
+  },
 
-        <button type="submit" class="primary-button">
-          Entrar no sistema
-        </button>
-      </form>
+  lider: {
+    nome: "Líder de turma",
+    titulo: "Painel do Líder de Turma",
+    descricao: "Acompanhe as informações da sua turma.",
+    modulos: [
+      ["📋", "Faltas", "Consulta de informações sobre faltas."],
+      ["🕒", "Horário da turma", "Consulte o horário das aulas."],
+      ["🪑", "Mapeamento de sala", "Visualização dos lugares da sala."],
+      ["📢", "Comunicados", "Avisos para a turma."],
+      ["📚", "Atividades", "Informações sobre atividades."],
+      ["💬", "Sugestões", "Espaço para sugestões da turma."]
+    ]
+  }
+};
 
-      <button type="button" class="theme-button">
-        ☀️ Modo claro
-      </button>
+// ELEMENTOS DA PÁGINA
+const login = document.getElementById("login");
+const app = document.getElementById("app");
+const modulePage = document.getElementById("modulePage");
 
-      <p class="login-footer">
-        Colégio Estadual Vicente Rijo
-      </p>
-    </section>
-  </main>
+const loginForm = document.getElementById("loginForm");
+const role = document.getElementById("role");
+const email = document.getElementById("email");
 
-  <!-- PAINEL PRINCIPAL -->
-  <main id="app" class="app-screen hidden">
+const modules = document.getElementById("modules");
+const roleTag = document.getElementById("roleTag");
+const hello = document.getElementById("hello");
+const dashboardTitle = document.getElementById("dashboardTitle");
+const subtitle = document.getElementById("subtitle");
+const today = document.getElementById("today");
 
-    <header class="topbar">
-      <div class="brand">
-        <div class="small-logo">VR</div>
-        <div>
-          <strong>VR Presente</strong>
-          <small>Gestão Escolar</small>
-        </div>
-      </div>
+const moduleProfile = document.getElementById("moduleProfile");
+const moduleTitle = document.getElementById("moduleTitle");
+const moduleDescription = document.getElementById("moduleDescription");
+const moduleMessage = document.getElementById("moduleMessage");
 
-      <div class="topbar-actions">
-        <span id="roleTag" class="role-tag"></span>
-        <button type="button" class="theme-button">
-          ☀️ Modo claro
-        </button>
-        <button type="button" id="logoutButton" class="logout-button">
-          Sair
-        </button>
-      </div>
-    </header>
+const backButton = document.getElementById("backButton");
+const logoutButton = document.getElementById("logoutButton");
 
-    <section class="dashboard">
-      <div class="welcome-area">
-        <div>
-          <p class="eyebrow">PAINEL DE ACESSO</p>
-          <h1 id="hello">Bem-vindo!</h1>
-          <p id="subtitle">Acesse os recursos do seu setor.</p>
-        </div>
-        <div class="date-box">
-          <span>DATA DE ACESSO</span>
-          <strong id="today"></strong>
-        </div>
-      </div>
+// TEMA CLARO E ESCURO
+const themeButtons = document.querySelectorAll(".theme-button");
 
-      <div class="section-heading">
-        <div>
-          <h2 id="dashboardTitle">Seu painel</h2>
-          <p>Selecione uma opção para continuar.</p>
-        </div>
-      </div>
+function atualizarTema() {
+  const temaSalvo = localStorage.getItem("vrTema");
 
-      <div id="modules" class="modules-grid"></div>
+  document.body.classList.toggle(
+    "light-mode",
+    temaSalvo === "claro"
+  );
 
-      <section class="notice-card">
-        <div class="notice-icon">!</div>
-        <div>
-          <h3>Comunicados escolares</h3>
-          <p>
-            Este espaço poderá ser utilizado para divulgar
-            avisos e informações importantes da escola.
-          </p>
-        </div>
-      </section>
-    </section>
-  </main>
+  atualizarBotoesTema();
+}
 
-  <!-- TELA DOS MÓDULOS -->
-  <main id="modulePage" class="module-screen hidden">
-    <header class="topbar">
-      <div class="brand">
-        <div class="small-logo">VR</div>
-        <div>
-          <strong>VR Presente</strong>
-          <small>Gestão Escolar</small>
-        </div>
-      </div>
+function atualizarBotoesTema() {
+  const estaClaro = document.body.classList.contains("light-mode");
 
-      <div class="topbar-actions">
-        <button type="button" class="theme-button">
-          ☀️ Modo claro
-        </button>
-        <button type="button" id="backButton" class="secondary-button">
-          Voltar
-        </button>
-      </div>
-    </header>
+  themeButtons.forEach((button) => {
+    button.textContent = estaClaro
+      ? "🌙 Modo escuro"
+      : "☀️ Modo claro";
+  });
+}
 
-    <section class="module-content">
-      <p class="eyebrow" id="moduleProfile">MÓDULO</p>
-      <h1 id="moduleTitle">Nome do módulo</h1>
-      <p id="moduleDescription"></p>
+themeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
 
-      <div class="module-placeholder">
-        <div class="placeholder-icon">📚</div>
-        <h2>Área do módulo</h2>
-        <p id="moduleMessage">
-          Esta área será desenvolvida para receber as funcionalidades.
-        </p>
-      </div>
-    </section>
-  </main>
+    const estaClaro =
+      document.body.classList.contains("light-mode");
 
-</body>
-</html>
+    localStorage.setItem(
+      "vrTema",
+      estaClaro ? "claro" : "escuro"
+    );
+
+    atualizarBotoesTema();
+  });
+});
+
+// APLICA O TEMA SALVO AO ABRIR A PÁGINA
+atualizarTema();
+
+// DATA ATUAL
+function atualizarData() {
+  const dataAtual = new Date();
+
+  today.textContent = dataAtual.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+}
+
+// MOSTRAR O PAINEL
+function mostrarPainel(setor, enderecoEmail) {
+  const perfil = data[setor];
+
+  if (!perfil) {
+    alert("Selecione um setor válido.");
+    return;
+  }
+
+  login.classList.add("hidden");
+  modulePage.classList.add("hidden");
+  app.classList.remove("hidden");
+
+  roleTag.textContent = perfil.nome;
+  hello.textContent = "Bem-vindo ao VR Presente!";
+  dashboardTitle.textContent = perfil.titulo;
+  subtitle.textContent = perfil.descricao;
+
+  atualizarData();
+
+  modules.innerHTML = "";
+
+  perfil.modulos.forEach((modulo, index) => {
+    const card = document.createElement("button");
+
+    card.type = "button";
+    card.className = "module-card";
+
+    const icon = document.createElement("div");
+    icon.className = "module-icon";
+    icon.textContent = modulo[0];
+
+    const title = document.createElement("h3");
+    title.textContent = modulo[1];
+
+    const description = document.createElement("p");
+    description.textContent = modulo[2];
+
+    card.append(icon, title, description);
+
+    card.addEventListener("click", () => {
+      abrirModulo(setor, index);
+    });
+
+    modules.appendChild(card);
+  });
+}
+
+// ABRIR UM MÓDULO
+function abrirModulo(setor, index) {
+  const perfil = data[setor];
+  const modulo = perfil.modulos[index];
+
+  if (!modulo) return;
+
+  app.classList.add("hidden");
+  login.classList.add("hidden");
+  modulePage.classList.remove("hidden");
+
+  moduleProfile.textContent = perfil.nome.toUpperCase();
+  moduleTitle.textContent = modulo[1];
+  moduleDescription.textContent = modulo[2];
+
+  moduleMessage.textContent =
+    "O módulo " + modulo[1] +
+    " está preparado para receber suas funcionalidades.";
+}
+
+// LOGIN DE DEMONSTRAÇÃO
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const setorSelecionado = role.value;
+  const emailDigitado = email.value.trim();
+
+  if (!setorSelecionado || !emailDigitado) {
+    alert("Preencha todos os campos.");
+    return;
+  }
+
+  mostrarPainel(setorSelecionado, emailDigitado);
+});
+
+// VOLTAR AO PAINEL
+backButton.addEventListener("click", () => {
+  modulePage.classList.add("hidden");
+  app.classList.remove("hidden");
+});
+
+// SAIR DO SISTEMA
+logoutButton.addEventListener("click", () => {
+  app.classList.add("hidden");
+  modulePage.classList.add("hidden");
+  login.classList.remove("hidden");
+
+  loginForm.reset();
+});
