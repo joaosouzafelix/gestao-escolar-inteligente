@@ -2,255 +2,153 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>VR Presente | Gestão Escolar</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VR Presente | Gestão Escolar</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
 
-    <!-- TELA INICIAL -->
+  <!-- TELA DE LOGIN -->
+  <main id="login" class="login-screen">
+    <section class="login-card">
+      <div class="school-logo">VR</div>
+      <h1>VR <span>Presente</span></h1>
+      <p class="login-subtitle">Sistema de Gestão Escolar</p>
+      <div class="gold-line"></div>
 
-    <section id="login" class="login-container">
+      <h2>Acesse sua conta</h2>
+      <p class="muted">Selecione seu setor para continuar.</p>
 
-        <div class="login-content">
+      <form id="loginForm">
+        <label for="role">Setor de acesso</label>
+        <select id="role" required>
+          <option value="" selected disabled>Selecione um setor</option>
+          <option value="direcao">Direção</option>
+          <option value="secretaria">Secretaria</option>
+          <option value="professores">Professores</option>
+          <option value="pedagogos">Pedagogos</option>
+          <option value="portaria">Portaria</option>
+          <option value="lider">Líder de turma</option>
+        </select>
 
-            <div class="intro">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Digite seu e-mail"
+          required
+        >
 
-                <div class="school-brand">
-                    <div class="school-logo">🏫</div>
+        <button type="submit" class="primary-button">
+          Entrar no sistema
+        </button>
+      </form>
 
-                    <div>
-                        <h2>Colégio Estadual Vicente Rijo</h2>
-                        <span>Gestão Escolar</span>
-                    </div>
-                </div>
+      <button type="button" class="theme-button">
+        ☀️ Modo claro
+      </button>
 
-                <h1>
-                    Acesso rápido para
-                    <span>gestão escolar</span>
-                </h1>
+      <p class="login-footer">
+        Colégio Estadual Vicente Rijo
+      </p>
+    </section>
+  </main>
 
-                <p>
-                    Um espaço integrado para organizar a rotina
-                    da escola, acompanhar informações e facilitar
-                    a comunicação entre os setores.
-                </p>
+  <!-- PAINEL PRINCIPAL -->
+  <main id="app" class="app-screen hidden">
 
-                <div class="profiles">
-                    <span>Direção</span>
-                    <span>Secretaria</span>
-                    <span>Professores</span>
-                    <span>Pedagogos</span>
-                    <span>Portaria</span>
-                    <span>Líder de turma</span>
-                </div>
-
-            </div>
-
-            <!-- CARTÃO DE LOGIN -->
-
-            <div class="login-card">
-
-                <span class="subtitle">BEM-VINDO(A)</span>
-
-                <h2>Entrar</h2>
-
-                <form id="loginForm">
-
-                    <label for="role">
-                        Selecione seu perfil
-                    </label>
-
-                    <select id="role" required>
-                        <option value="">Escolha seu setor</option>
-                        <option value="Direção">Direção</option>
-                        <option value="Secretaria">Secretaria</option>
-                        <option value="Professores">Professores</option>
-                        <option value="Pedagogos">Pedagogos</option>
-                        <option value="Portaria">Portaria</option>
-                        <option value="Líder de turma">Líder de turma</option>
-                    </select>
-
-                    <label for="email">
-                        E-mail institucional
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="seuemail@escola.pr.gov.br"
-                        required
-                    >
-
-                    <button type="submit" class="primary-button">
-                        Entrar no sistema →
-                    </button>
-
-                </form>
-
-                <p class="login-note">
-                    Sistema de gestão escolar do Colégio Estadual Vicente Rijo.
-                </p>
-
-            </div>
-
+    <header class="topbar">
+      <div class="brand">
+        <div class="small-logo">VR</div>
+        <div>
+          <strong>VR Presente</strong>
+          <small>Gestão Escolar</small>
         </div>
+      </div>
 
+      <div class="topbar-actions">
+        <span id="roleTag" class="role-tag"></span>
+        <button type="button" class="theme-button">
+          ☀️ Modo claro
+        </button>
+        <button type="button" id="logoutButton" class="logout-button">
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <section class="dashboard">
+      <div class="welcome-area">
+        <div>
+          <p class="eyebrow">PAINEL DE ACESSO</p>
+          <h1 id="hello">Bem-vindo!</h1>
+          <p id="subtitle">Acesse os recursos do seu setor.</p>
+        </div>
+        <div class="date-box">
+          <span>DATA DE ACESSO</span>
+          <strong id="today"></strong>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <div>
+          <h2 id="dashboardTitle">Seu painel</h2>
+          <p>Selecione uma opção para continuar.</p>
+        </div>
+      </div>
+
+      <div id="modules" class="modules-grid"></div>
+
+      <section class="notice-card">
+        <div class="notice-icon">!</div>
+        <div>
+          <h3>Comunicados escolares</h3>
+          <p>
+            Este espaço poderá ser utilizado para divulgar
+            avisos e informações importantes da escola.
+          </p>
+        </div>
+      </section>
     </section>
+  </main>
 
+  <!-- TELA DOS MÓDULOS -->
+  <main id="modulePage" class="module-screen hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="small-logo">VR</div>
+        <div>
+          <strong>VR Presente</strong>
+          <small>Gestão Escolar</small>
+        </div>
+      </div>
 
-    <!-- PAINEL DO SISTEMA -->
+      <div class="topbar-actions">
+        <button type="button" class="theme-button">
+          ☀️ Modo claro
+        </button>
+        <button type="button" id="backButton" class="secondary-button">
+          Voltar
+        </button>
+      </div>
+    </header>
 
-    <section id="app" class="hidden">
+    <section class="module-content">
+      <p class="eyebrow" id="moduleProfile">MÓDULO</p>
+      <h1 id="moduleTitle">Nome do módulo</h1>
+      <p id="moduleDescription"></p>
 
-        <header class="topbar">
-
-            <div class="top-brand">
-
-                <div class="small-logo">🏫</div>
-
-                <div>
-                    <strong>Colégio Estadual Vicente Rijo</strong>
-                    <small>VR Presente • Gestão Escolar</small>
-                </div>
-
-            </div>
-
-            <div class="top-actions">
-
-                <span id="roleTag" class="role-tag">
-                    Perfil
-                </span>
-
-                <button id="logoutButton" class="logout-button">
-                    Sair ↗
-                </button>
-
-            </div>
-
-        </header>
-
-
-        <main class="dashboard">
-
-            <!-- BOAS-VINDAS -->
-
-            <section class="welcome">
-
-                <div>
-                    <span id="hello">Olá!</span>
-
-                    <h1 id="dashboardTitle">
-                        Painel
-                    </h1>
-
-                    <p id="subtitle">
-                        Acesso aos módulos do sistema.
-                    </p>
-                </div>
-
-                <div id="today" class="date"></div>
-
-            </section>
-
-
-            <!-- MÓDULOS -->
-
-            <section class="modules-section">
-
-                <div class="section-heading">
-                    <h2>Módulos disponíveis</h2>
-
-                    <span>
-                        Selecione uma opção para continuar
-                    </span>
-                </div>
-
-                <div id="modules" class="modules-grid"></div>
-
-            </section>
-
-
-            <!-- CENTRAL DE AVISOS -->
-
-            <section class="notice-panel">
-
-                <div class="notice-heading">
-                    <span>📢</span>
-
-                    <div>
-                        <h2>Central de avisos</h2>
-
-                        <p>
-                            Comunicados e informações importantes da escola.
-                        </p>
-                    </div>
-                </div>
-
-                <div id="notices">
-                    <div class="empty-notice">
-                        Nenhum comunicado disponível no momento.
-                    </div>
-                </div>
-
-            </section>
-
-            <footer>
-                VR Presente © 2026 • Colégio Estadual Vicente Rijo
-            </footer>
-
-        </main>
-
+      <div class="module-placeholder">
+        <div class="placeholder-icon">📚</div>
+        <h2>Área do módulo</h2>
+        <p id="moduleMessage">
+          Esta área será desenvolvida para receber as funcionalidades.
+        </p>
+      </div>
     </section>
-
-
-    <!-- ÁREA DE MÓDULOS -->
-
-    <section id="modulePage" class="module-page hidden">
-
-        <header class="topbar">
-
-            <div class="top-brand">
-                <div class="small-logo">🏫</div>
-
-                <div>
-                    <strong>Colégio Estadual Vicente Rijo</strong>
-                    <small>VR Presente • Gestão Escolar</small>
-                </div>
-            </div>
-
-            <button id="backButton" class="logout-button">
-                ← Voltar ao painel
-            </button>
-
-        </header>
-
-        <main class="dashboard">
-
-            <section class="welcome">
-                <div>
-                    <span id="moduleProfile">Perfil</span>
-                    <h1 id="moduleTitle">Módulo</h1>
-                    <p id="moduleDescription"></p>
-                </div>
-            </section>
-
-            <section class="notice-panel">
-                <h2>Área do módulo</h2>
-                <p id="moduleMessage">
-                    Esta área está preparada para receber as funcionalidades.
-                </p>
-            </section>
-
-        </main>
-
-    </section>
+  </main>
 
 </body>
 </html>
