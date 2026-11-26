@@ -1,747 +1,256 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SmartSchool - Sistema de Gestão Escolar Inteligente">
-  <title>SmartSchool | Gestão Escolar Inteligente</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VR Presente | Gestão Escolar</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-  <!-- ===================== LOGIN ===================== -->
-  <div class="auth-screen" id="loginScreen">
-    <div class="auth-brand">
-      <div class="auth-logo">SS</div>
-      <h1>SmartSchool</h1>
-      <p>Gestão Escolar Inteligente</p>
-      <ul class="auth-features">
-        <li>✔ Alunos, professores e turmas</li>
-        <li>✔ Notas e frequência em tempo real</li>
-        <li>✔ Agenda, avisos e relatórios</li>
-      </ul>
-    </div>
+    <!-- TELA INICIAL -->
 
-    <div class="auth-form-wrap">
-      <main class="auth-card" id="authCard">
-        <header class="auth-card-head">
-          <h2>Bem-vindo de volta</h2>
-          <p>Entre com seu acesso para continuar</p>
+    <section id="login" class="login-container">
+
+        <div class="login-content">
+
+            <div class="intro">
+
+                <div class="school-brand">
+                    <div class="school-logo">🏫</div>
+
+                    <div>
+                        <h2>Colégio Estadual Vicente Rijo</h2>
+                        <span>Gestão Escolar</span>
+                    </div>
+                </div>
+
+                <h1>
+                    Acesso rápido para
+                    <span>gestão escolar</span>
+                </h1>
+
+                <p>
+                    Um espaço integrado para organizar a rotina
+                    da escola, acompanhar informações e facilitar
+                    a comunicação entre os setores.
+                </p>
+
+                <div class="profiles">
+                    <span>Direção</span>
+                    <span>Secretaria</span>
+                    <span>Professores</span>
+                    <span>Pedagogos</span>
+                    <span>Portaria</span>
+                    <span>Líder de turma</span>
+                </div>
+
+            </div>
+
+            <!-- CARTÃO DE LOGIN -->
+
+            <div class="login-card">
+
+                <span class="subtitle">BEM-VINDO(A)</span>
+
+                <h2>Entrar</h2>
+
+                <form id="loginForm">
+
+                    <label for="role">
+                        Selecione seu perfil
+                    </label>
+
+                    <select id="role" required>
+                        <option value="">Escolha seu setor</option>
+                        <option value="Direção">Direção</option>
+                        <option value="Secretaria">Secretaria</option>
+                        <option value="Professores">Professores</option>
+                        <option value="Pedagogos">Pedagogos</option>
+                        <option value="Portaria">Portaria</option>
+                        <option value="Líder de turma">Líder de turma</option>
+                    </select>
+
+                    <label for="email">
+                        E-mail institucional
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seuemail@escola.pr.gov.br"
+                        required
+                    >
+
+                    <button type="submit" class="primary-button">
+                        Entrar no sistema →
+                    </button>
+
+                </form>
+
+                <p class="login-note">
+                    Sistema de gestão escolar do Colégio Estadual Vicente Rijo.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAINEL DO SISTEMA -->
+
+    <section id="app" class="hidden">
+
+        <header class="topbar">
+
+            <div class="top-brand">
+
+                <div class="small-logo">🏫</div>
+
+                <div>
+                    <strong>Colégio Estadual Vicente Rijo</strong>
+                    <small>VR Presente • Gestão Escolar</small>
+                </div>
+
+            </div>
+
+            <div class="top-actions">
+
+                <span id="roleTag" class="role-tag">
+                    Perfil
+                </span>
+
+                <button id="logoutButton" class="logout-button">
+                    Sair ↗
+                </button>
+
+            </div>
+
         </header>
 
-        <form id="loginForm" novalidate>
-          <div class="field">
-            <label for="loginEmail">E-mail</label>
-            <input type="email" id="loginEmail" name="email" placeholder="seu@email.com" autocomplete="username" required>
-            <span class="field-error" id="loginEmailError"></span>
-          </div>
 
-          <div class="field">
-            <label for="loginSenha">Senha</label>
-            <div class="input-icon">
-              <input type="password" id="loginSenha" name="senha" placeholder="••••••••" autocomplete="current-password" required>
-              <button type="button" class="icon-btn" id="toggleSenha" aria-label="Mostrar senha">👁</button>
-            </div>
-            <span class="field-error" id="loginSenhaError"></span>
-          </div>
+        <main class="dashboard">
 
-          <div class="auth-row">
-            <label class="check">
-              <input type="checkbox" id="lembrarMe">
-              <span>Lembrar-me</span>
-            </label>
-            <button type="button" class="link-btn" id="btnEsqueciSenha">Esqueceu a senha?</button>
-          </div>
+            <!-- BOAS-VINDAS -->
 
-          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-        </form>
+            <section class="welcome">
 
-        <div class="auth-demo">
-          <p class="auth-demo-title">Acessos de demonstração (senha: <b>123456</b>)</p>
-          <div class="auth-demo-grid">
-            <button type="button" class="demo-chip" data-email="admin@smartschool.com">Administrador</button>
-            <button type="button" class="demo-chip" data-email="professor@smartschool.com">Professor</button>
-            <button type="button" class="demo-chip" data-email="aluno@smartschool.com">Aluno</button>
-            <button type="button" class="demo-chip" data-email="responsavel@smartschool.com">Responsável</button>
-          </div>
-        </div>
-      </main>
-    </div>
-  </div>
+                <div>
+                    <span id="hello">Olá!</span>
 
-  <!-- ===================== APP ===================== -->
-  <div class="app hidden" id="app">
+                    <h1 id="dashboardTitle">
+                        Painel
+                    </h1>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
-      <div class="sidebar-brand">
-        <div class="brand-logo">SS</div>
-        <div class="brand-text">
-          <strong>SmartSchool</strong>
-          <span id="brandSchool">Escola Modelo</span>
-        </div>
-      </div>
-
-      <nav class="sidebar-nav" id="sidebarNav">
-        <p class="nav-label">Geral</p>
-        <button class="nav-item active" data-page="dashboard"><span class="nav-ico">📊</span><span class="nav-text">Dashboard</span></button>
-
-        <p class="nav-label">Acadêmico</p>
-        <button class="nav-item" data-page="alunos"><span class="nav-ico">🎓</span><span class="nav-text">Alunos</span></button>
-        <button class="nav-item" data-page="professores"><span class="nav-ico">👩‍🏫</span><span class="nav-text">Professores</span></button>
-        <button class="nav-item" data-page="turmas"><span class="nav-ico">🏫</span><span class="nav-text">Turmas</span></button>
-        <button class="nav-item" data-page="notas"><span class="nav-ico">📝</span><span class="nav-text">Notas</span></button>
-        <button class="nav-item" data-page="frequencia"><span class="nav-ico">🗓️</span><span class="nav-text">Frequência</span></button>
-
-        <p class="nav-label">Comunicação</p>
-        <button class="nav-item" data-page="agenda"><span class="nav-ico">📅</span><span class="nav-text">Agenda</span></button>
-        <button class="nav-item" data-page="comunicacao"><span class="nav-ico">💬</span><span class="nav-text">Comunicação</span></button>
-
-        <p class="nav-label">Análise</p>
-        <button class="nav-item" data-page="relatorios"><span class="nav-ico">📈</span><span class="nav-text">Relatórios</span></button>
-        <button class="nav-item" data-page="configuracoes"><span class="nav-ico">⚙️</span><span class="nav-text">Configurações</span></button>
-      </nav>
-
-      <div class="sidebar-foot">
-        <div class="user-mini">
-          <div class="avatar" id="sideAvatar">A</div>
-          <div class="user-mini-text">
-            <strong id="sideUserName">Usuário</strong>
-            <span id="sideUserRole">Administrador</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- MAIN -->
-    <div class="main">
-      <header class="topbar">
-        <div class="topbar-left">
-          <button class="icon-btn" id="btnSidebar" aria-label="Recolher menu">☰</button>
-          <div>
-            <h1 class="page-title" id="pageTitle">Dashboard</h1>
-            <p class="page-sub" id="pageSub">Visão geral da escola</p>
-          </div>
-        </div>
-
-        <div class="topbar-right">
-          <button class="icon-btn" id="btnNotificacoes" aria-label="Notificações">
-            🔔<span class="badge" id="notifBadge">0</span>
-          </button>
-          <button class="icon-btn" id="btnTema" aria-label="Alternar tema">🌙</button>
-          <div class="user-menu">
-            <button class="user-menu-btn" id="btnUserMenu" aria-haspopup="true" aria-expanded="false">
-              <span class="avatar sm" id="topAvatar">A</span>
-              <span class="user-menu-name" id="topUserName">Usuário</span>
-              <span class="caret">▾</span>
-            </button>
-            <div class="dropdown" id="userDropdown" role="menu">
-              <div class="dropdown-head">
-                <strong id="dropUserName">Usuário</strong>
-                <span id="dropUserRole">Administrador</span>
-              </div>
-              <button class="dropdown-item" data-page="configuracoes">⚙️ Configurações</button>
-              <button class="dropdown-item" id="btnSair">🚪 Sair</button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div class="dropdown dropdown-notif" id="notifDropdown">
-        <div class="dropdown-head"><strong>Notificações</strong></div>
-        <div id="notifList"></div>
-      </div>
-
-      <main class="content" id="content">
-
-        <!-- ============ DASHBOARD ============ -->
-        <section class="page" id="page-dashboard">
-          <div class="stats-grid">
-            <article class="stat-card blue">
-              <div class="stat-ico">🎓</div>
-              <div class="stat-body"><span class="stat-label">Total de alunos</span><strong class="stat-value" id="statAlunos">0</strong></div>
-            </article>
-            <article class="stat-card purple">
-              <div class="stat-ico">👩‍🏫</div>
-              <div class="stat-body"><span class="stat-label">Total de professores</span><strong class="stat-value" id="statProfessores">0</strong></div>
-            </article>
-            <article class="stat-card green">
-              <div class="stat-ico">🏫</div>
-              <div class="stat-body"><span class="stat-label">Turmas ativas</span><strong class="stat-value" id="statTurmas">0</strong></div>
-            </article>
-            <article class="stat-card amber">
-              <div class="stat-ico">🗓️</div>
-              <div class="stat-body"><span class="stat-label">Frequência média</span><strong class="stat-value" id="statFrequencia">0%</strong></div>
-            </article>
-            <article class="stat-card rose">
-              <div class="stat-ico">📝</div>
-              <div class="stat-body"><span class="stat-label">Notas médias</span><strong class="stat-value" id="statNotas">0</strong></div>
-            </article>
-          </div>
-
-          <div class="grid-2">
-            <section class="card">
-              <header class="card-head">
-                <h2>Desempenho por turma</h2>
-                <span class="chip">Média geral (0–10)</span>
-              </header>
-              <div class="chart-box"><canvas id="chartDesempenho" height="220" aria-label="Gráfico de desempenho por turma"></canvas></div>
-            </section>
-
-            <section class="card">
-              <header class="card-head">
-                <h2>Frequência recente</h2>
-                <span class="chip">Últimos 15 dias letivos</span>
-              </header>
-              <div class="chart-box"><canvas id="chartFrequencia" height="220" aria-label="Gráfico de frequência"></canvas></div>
-            </section>
-          </div>
-
-          <div class="grid-3">
-            <section class="card">
-              <header class="card-head"><h2>Calendário escolar</h2></header>
-              <div id="miniCalendario" class="mini-cal"></div>
-              <ul class="legend">
-                <li><i class="dot blue"></i> Evento</li>
-                <li><i class="dot purple"></i> Prova</li>
-                <li><i class="dot rose"></i> Reunião</li>
-              </ul>
-            </section>
-
-            <section class="card">
-              <header class="card-head"><h2>Avisos recentes</h2></header>
-              <ul class="feed" id="avisosRecentes"></ul>
-            </section>
-
-            <section class="card">
-              <header class="card-head"><h2>Próximas atividades</h2></header>
-              <ul class="feed" id="proximasAtividades"></ul>
-            </section>
-          </div>
-        </section>
-
-        <!-- ============ ALUNOS ============ -->
-        <section class="page hidden" id="page-alunos">
-          <section class="card">
-            <header class="card-head">
-              <div>
-                <h2>Alunos cadastrados</h2>
-                <p class="muted" id="alunosContagem">0 alunos</p>
-              </div>
-              <div class="toolbar">
-                <input type="search" id="alunoBusca" placeholder="Buscar por nome, matrícula ou e-mail..." aria-label="Buscar alunos">
-                <select id="alunoFiltroTurma" aria-label="Filtrar por turma"><option value="">Todas as turmas</option></select>
-                <button class="btn btn-primary" id="btnNovoAluno">＋ Novo aluno</button>
-              </div>
-            </header>
-
-            <div class="table-wrap">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Aluno</th><th>Matrícula</th><th>Turma</th><th>Responsável</th><th>Telefone</th><th>Frequência</th><th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody id="alunosTbody"></tbody>
-              </table>
-            </div>
-          </section>
-        </section>
-
-        <!-- ============ PROFESSORES ============ -->
-        <section class="page hidden" id="page-professores">
-          <section class="card">
-            <header class="card-head">
-              <div>
-                <h2>Corpo docente</h2>
-                <p class="muted" id="professoresContagem">0 professores</p>
-              </div>
-              <button class="btn btn-primary" id="btnNovoProfessor">＋ Novo professor</button>
-            </header>
-            <div class="table-wrap">
-              <table class="table">
-                <thead>
-                  <tr><th>Professor</th><th>Disciplinas</th><th>Turmas</th><th>Horário</th><th>Alunos</th><th>Ações</th></tr>
-                </thead>
-                <tbody id="professoresTbody"></tbody>
-              </table>
-            </div>
-          </section>
-        </section>
-
-        <!-- ============ TURMAS ============ -->
-        <section class="page hidden" id="page-turmas">
-          <div class="page-toolbar">
-            <div>
-              <h2>Turmas</h2>
-              <p class="muted" id="turmasContagem">0 turmas ativas</p>
-            </div>
-            <button class="btn btn-primary" id="btnNovaTurma">＋ Nova turma</button>
-          </div>
-          <div class="cards-grid" id="turmasGrid"></div>
-        </section>
-
-        <!-- ============ NOTAS ============ -->
-        <section class="page hidden" id="page-notas">
-          <div class="filters-bar">
-            <div class="field inline">
-              <label for="notasTurma">Turma</label>
-              <select id="notasTurma"></select>
-            </div>
-            <div class="field inline">
-              <label for="notasDisciplina">Disciplina</label>
-              <select id="notasDisciplina"></select>
-            </div>
-            <div class="field inline">
-              <label for="notaBusca">Buscar aluno</label>
-              <input type="search" id="notaBusca" placeholder="Nome do aluno">
-            </div>
-            <span class="chip" id="notasSituacao">—</span>
-          </div>
-
-          <section class="card">
-            <header class="card-head"><h2>Livro de notas</h2><span class="chip">Mín. 7.0 · Recuperação ≥ 5.0</span></header>
-            <div class="table-wrap">
-              <table class="table">
-                <thead>
-                  <tr><th>Aluno</th><th>1º Bim</th><th>2º Bim</th><th>3º Bim</th><th>4º Bim</th><th>Média</th><th>Situação</th></tr>
-                </thead>
-                <tbody id="notasTbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <section class="card">
-            <header class="card-head"><h2>Desempenho por disciplina</h2></header>
-            <div class="chart-box"><canvas id="chartNotas" height="220" aria-label="Gráfico de notas por disciplina"></canvas></div>
-          </section>
-        </section>
-
-        <!-- ============ FREQUÊNCIA ============ -->
-        <section class="page hidden" id="page-frequencia">
-          <div class="filters-bar">
-            <div class="field inline">
-              <label for="freqTurma">Turma</label>
-              <select id="freqTurma"></select>
-            </div>
-            <div class="field inline">
-              <label for="freqData">Data</label>
-              <input type="date" id="freqData">
-            </div>
-            <button class="btn btn-soft" id="freqTodosPresentes">Marcar todos presentes</button>
-            <button class="btn btn-soft" id="freqTodosAusentes">Marcar todos ausentes</button>
-            <button class="btn btn-primary" id="freqSalvar">💾 Salvar chamada</button>
-          </div>
-
-          <div class="alert alert-warn hidden" id="freqAlerta"></div>
-
-          <section class="card">
-            <header class="card-head"><h2>Chamada do dia</h2><span class="chip" id="freqResumo">—</span></header>
-            <ul class="call-list" id="freqLista"></ul>
-          </section>
-
-          <section class="card">
-            <header class="card-head"><h2>Relatório de frequência por período</h2></header>
-            <div class="filters-bar">
-              <div class="field inline"><label for="freqInicio">Início</label><input type="date" id="freqInicio"></div>
-              <div class="field inline"><label for="freqFim">Fim</label><input type="date" id="freqFim"></div>
-              <button class="btn btn-soft" id="freqGerar">Gerar relatório</button>
-            </div>
-            <div class="table-wrap">
-              <table class="table">
-                <thead><tr><th>Aluno</th><th>Turma</th><th>Presentes</th><th>Faltas</th><th>%</th><th>Situação</th></tr></thead>
-                <tbody id="freqRelatorioTbody"></tbody>
-              </table>
-            </div>
-          </section>
-        </section>
-
-        <!-- ============ AGENDA ============ -->
-        <section class="page hidden" id="page-agenda">
-          <div class="page-toolbar">
-            <div class="cal-nav">
-              <button class="icon-btn" id="calAnterior" aria-label="Mês anterior">‹</button>
-              <h2 id="calTitulo">Mês</h2>
-              <button class="icon-btn" id="calProximo" aria-label="Próximo mês">›</button>
-              <button class="btn btn-soft" id="calHoje">Hoje</button>
-            </div>
-            <button class="btn btn-primary" id="btnNovoEvento">＋ Novo evento</button>
-          </div>
-
-          <div class="agenda-layout">
-            <section class="card">
-              <div class="calendar" id="agendaCalendario"></div>
-            </section>
-            <section class="card">
-              <header class="card-head"><h2 id="eventosTitulo">Eventos</h2></header>
-              <ul class="feed" id="eventosLista"></ul>
-            </section>
-          </div>
-        </section>
-
-        <!-- ============ COMUNICAÇÃO ============ -->
-        <section class="page hidden" id="page-comunicacao">
-          <div class="grid-2">
-            <section class="card">
-              <header class="card-head">
-                <h2>Avisos da escola</h2>
-                <button class="btn btn-primary" id="btnNovoAviso">＋ Novo aviso</button>
-              </header>
-              <ul class="feed" id="avisosLista"></ul>
-            </section>
-
-            <section class="card">
-              <header class="card-head">
-                <h2>Mensagens</h2>
-                <button class="btn btn-primary" id="btnNovaMensagem">＋ Nova mensagem</button>
-              </header>
-              <ul class="feed messages" id="mensagensLista"></ul>
-            </section>
-          </div>
-        </section>
-
-        <!-- ============ RELATÓRIOS ============ -->
-        <section class="page hidden" id="page-relatorios">
-          <section class="card">
-            <header class="card-head"><h2>Gerador de relatórios</h2></header>
-            <div class="filters-bar">
-              <div class="field inline">
-                <label for="relTipo">Tipo</label>
-                <select id="relTipo">
-                  <option value="notas">Relatório de notas</option>
-                  <option value="frequencia">Relatório de frequência</option>
-                  <option value="turma">Desempenho por turma</option>
-                  <option value="individual">Desempenho individual</option>
-                </select>
-              </div>
-              <div class="field inline"><label for="relTurma">Turma</label><select id="relTurma"></select></div>
-              <div class="field inline"><label for="relAluno">Aluno</label><select id="relAluno"></select></div>
-              <div class="field inline"><label for="relInicio">Início</label><input type="date" id="relInicio"></div>
-              <div class="field inline"><label for="relFim">Fim</label><input type="date" id="relFim"></div>
-              <button class="btn btn-primary" id="relGerar">Gerar relatório</button>
-              <button class="btn btn-soft" id="relImprimir">🖨️ Imprimir</button>
-              <button class="btn btn-soft" id="relExportar">⬇️ Exportar CSV</button>
-            </div>
-            <div id="relResultado" class="rel-result">
-              <p class="muted">Selecione os filtros e clique em “Gerar relatório”.</p>
-            </div>
-          </section>
-        </section>
-
-        <!-- ============ CONFIGURAÇÕES ============ -->
-        <section class="page hidden" id="page-configuracoes">
-          <div class="grid-2">
-            <section class="card">
-              <header class="card-head"><h2>Dados da escola</h2></header>
-              <form id="formEscola" class="form-grid" novalidate>
-                <div class="field"><label for="cfgNome">Nome da escola</label><input type="text" id="cfgNome" required></div>
-                <div class="field"><label for="cfgAno">Ano letivo</label><input type="text" id="cfgAno" required></div>
-                <div class="field"><label for="cfgEndereco">Endereço</label><input type="text" id="cfgEndereco"></div>
-                <div class="field"><label for="cfgTelefone">Telefone</label><input type="text" id="cfgTelefone"></div>
-                <div class="field"><label for="cfgEmail">E-mail</label><input type="email" id="cfgEmail"></div>
-                <div class="field full"><button class="btn btn-primary" type="submit">Salvar alterações</button></div>
-              </form>
-            </section>
-
-            <section class="card">
-              <header class="card-head"><h2>Preferências do sistema</h2></header>
-              <div class="pref-list">
-                <label class="pref-item">
-                  <span><strong>Tema claro / escuro</strong><small>Alterna a aparência do sistema</small></span>
-                  <input type="checkbox" class="switch" id="prefTema">
-                </label>
-                <label class="pref-item">
-                  <span><strong>Sidebar iniciar recolhida</strong><small>Abre o menu compacto ao entrar</small></span>
-                  <input type="checkbox" class="switch" id="prefSidebar">
-                </label>
-                <label class="pref-item">
-                  <span><strong>Alertas de baixa frequência</strong><small>Avisa quando frequência &lt; 75%</small></span>
-                  <input type="checkbox" class="switch" id="prefAlertas">
-                </label>
-                <div class="field">
-                  <label for="cfgInicio">Página inicial padrão</label>
-                  <select id="cfgInicio">
-                    <option value="dashboard">Dashboard</option>
-                    <option value="alunos">Alunos</option>
-                    <option value="notas">Notas</option>
-                    <option value="agenda">Agenda</option>
-                  </select>
+                    <p id="subtitle">
+                        Acesso aos módulos do sistema.
+                    </p>
                 </div>
-                <button class="btn btn-primary" id="btnSalvarPrefs">Salvar preferências</button>
-              </div>
+
+                <div id="today" class="date"></div>
+
             </section>
-          </div>
 
-          <section class="card">
-            <header class="card-head">
-              <div><h2>Usuários e acessos</h2><p class="muted">Controle quem entra no sistema</p></div>
-              <button class="btn btn-primary" id="btnNovoUsuario">＋ Novo usuário</button>
-            </header>
-            <div class="table-wrap">
-              <table class="table">
-                <thead><tr><th>Usuário</th><th>E-mail</th><th>Perfil</th><th>Status</th><th>Ações</th></tr></thead>
-                <tbody id="usuariosTbody"></tbody>
-              </table>
+
+            <!-- MÓDULOS -->
+
+            <section class="modules-section">
+
+                <div class="section-heading">
+                    <h2>Módulos disponíveis</h2>
+
+                    <span>
+                        Selecione uma opção para continuar
+                    </span>
+                </div>
+
+                <div id="modules" class="modules-grid"></div>
+
+            </section>
+
+
+            <!-- CENTRAL DE AVISOS -->
+
+            <section class="notice-panel">
+
+                <div class="notice-heading">
+                    <span>📢</span>
+
+                    <div>
+                        <h2>Central de avisos</h2>
+
+                        <p>
+                            Comunicados e informações importantes da escola.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="notices">
+                    <div class="empty-notice">
+                        Nenhum comunicado disponível no momento.
+                    </div>
+                </div>
+
+            </section>
+
+            <footer>
+                VR Presente © 2026 • Colégio Estadual Vicente Rijo
+            </footer>
+
+        </main>
+
+    </section>
+
+
+    <!-- ÁREA DE MÓDULOS -->
+
+    <section id="modulePage" class="module-page hidden">
+
+        <header class="topbar">
+
+            <div class="top-brand">
+                <div class="small-logo">🏫</div>
+
+                <div>
+                    <strong>Colégio Estadual Vicente Rijo</strong>
+                    <small>VR Presente • Gestão Escolar</small>
+                </div>
             </div>
-          </section>
 
-          <section class="card">
-            <header class="card-head"><h2>Permissões por perfil</h2><span class="chip">Menus liberados</span></header>
-            <div id="permissoesWrap" class="perm-grid"></div>
-            <button class="btn btn-primary" id="btnSalvarPermissoes">Salvar permissões</button>
-          </section>
-        </section>
+            <button id="backButton" class="logout-button">
+                ← Voltar ao painel
+            </button>
 
-      </main>
-    </div>
-  </div>
+        </header>
 
-  <!-- ===================== MODAIS ===================== -->
-  <div class="modal" id="modalAluno" role="dialog" aria-modal="true" aria-labelledby="modalAlunoTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalAlunoTitulo">Novo aluno</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formAluno" novalidate>
-        <input type="hidden" id="alunoId">
-        <div class="form-grid">
-          <div class="field"><label for="alunoNome">Nome completo *</label><input type="text" id="alunoNome" required></div>
-          <div class="field"><label for="alunoMatricula">Matrícula *</label><input type="text" id="alunoMatricula" required></div>
-          <div class="field"><label for="alunoNascimento">Data de nascimento *</label><input type="date" id="alunoNascimento" required></div>
-          <div class="field"><label for="alunoTurma">Turma *</label><select id="alunoTurma" required></select></div>
-          <div class="field"><label for="alunoResponsavel">Responsável *</label><input type="text" id="alunoResponsavel" required></div>
-          <div class="field"><label for="alunoTelefone">Telefone *</label><input type="tel" id="alunoTelefone" placeholder="(11) 99999-0000" required></div>
-          <div class="field"><label for="alunoEmail">E-mail *</label><input type="email" id="alunoEmail" required></div>
-        </div>
-        <p class="field-error" id="formAlunoErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Salvar aluno</button>
-        </footer>
-      </form>
-    </div>
-  </div>
+        <main class="dashboard">
 
-  <div class="modal" id="modalProfessor" role="dialog" aria-modal="true" aria-labelledby="modalProfessorTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalProfessorTitulo">Novo professor</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formProfessor" novalidate>
-        <input type="hidden" id="profId">
-        <div class="form-grid">
-          <div class="field"><label for="profNome">Nome completo *</label><input type="text" id="profNome" required></div>
-          <div class="field"><label for="profEmail">E-mail *</label><input type="email" id="profEmail" required></div>
-          <div class="field"><label for="profTelefone">Telefone *</label><input type="tel" id="profTelefone" required></div>
-          <div class="field"><label for="profHorario">Horário *</label><input type="text" id="profHorario" placeholder="Seg a Sex · 07:00 - 12:00" required></div>
-          <div class="field full">
-            <label>Disciplinas *</label>
-            <div class="chips-check" id="profDisciplinas"></div>
-          </div>
-          <div class="field full">
-            <label>Turmas vinculadas</label>
-            <div class="chips-check" id="profTurmas"></div>
-          </div>
-        </div>
-        <p class="field-error" id="formProfessorErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Salvar professor</button>
-        </footer>
-      </form>
-    </div>
-  </div>
+            <section class="welcome">
+                <div>
+                    <span id="moduleProfile">Perfil</span>
+                    <h1 id="moduleTitle">Módulo</h1>
+                    <p id="moduleDescription"></p>
+                </div>
+            </section>
 
-  <div class="modal" id="modalTurma" role="dialog" aria-modal="true" aria-labelledby="modalTurmaTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalTurmaTitulo">Nova turma</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formTurma" novalidate>
-        <input type="hidden" id="turmaId">
-        <div class="form-grid">
-          <div class="field"><label for="turmaNome">Nome da turma *</label><input type="text" id="turmaNome" placeholder="Ex.: 9º Ano A" required></div>
-          <div class="field"><label for="turmaSerie">Série / Etapa *</label><input type="text" id="turmaSerie" placeholder="Ex.: Ensino Fundamental II" required></div>
-          <div class="field"><label for="turmaSala">Sala</label><input type="text" id="turmaSala" placeholder="Sala 12"></div>
-          <div class="field"><label for="turmaTitular">Professor titular</label><select id="turmaTitular"></select></div>
-          <div class="field full"><label for="turmaHorario">Horário *</label><input type="text" id="turmaHorario" placeholder="07:00 - 17:20" required></div>
-          <div class="field full"><label>Disciplinas</label><div class="chips-check" id="turmaDisciplinas"></div></div>
-        </div>
-        <p class="field-error" id="formTurmaErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Salvar turma</button>
-        </footer>
-      </form>
-    </div>
-  </div>
+            <section class="notice-panel">
+                <h2>Área do módulo</h2>
+                <p id="moduleMessage">
+                    Esta área está preparada para receber as funcionalidades.
+                </p>
+            </section>
 
-  <div class="modal" id="modalEvento" role="dialog" aria-modal="true" aria-labelledby="modalEventoTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalEventoTitulo">Novo evento</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formEvento" novalidate>
-        <input type="hidden" id="eventoId">
-        <div class="form-grid">
-          <div class="field full"><label for="eventoTitulo">Título *</label><input type="text" id="eventoTitulo" required></div>
-          <div class="field"><label for="eventoData">Data *</label><input type="date" id="eventoData" required></div>
-          <div class="field"><label for="eventoTipo">Tipo *</label>
-            <select id="eventoTipo">
-              <option value="evento">Evento</option>
-              <option value="prova">Prova</option>
-              <option value="reuniao">Reunião</option>
-              <option value="atividade">Atividade</option>
-            </select>
-          </div>
-          <div class="field full"><label for="eventoHora">Horário</label><input type="time" id="eventoHora"></div>
-          <div class="field full"><label for="eventoDesc">Descrição</label><textarea id="eventoDesc" rows="3"></textarea></div>
-        </div>
-        <p class="field-error" id="formEventoErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Salvar evento</button>
-        </footer>
-      </form>
-    </div>
-  </div>
+        </main>
 
-  <div class="modal" id="modalAviso" role="dialog" aria-modal="true" aria-labelledby="modalAvisoTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalAvisoTitulo">Novo aviso</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formAviso" novalidate>
-        <input type="hidden" id="avisoId">
-        <div class="form-grid">
-          <div class="field full"><label for="avisoTitulo">Título *</label><input type="text" id="avisoTitulo" required></div>
-          <div class="field full"><label for="avisoTexto">Mensagem *</label><textarea id="avisoTexto" rows="4" required></textarea></div>
-          <div class="field full"><label for="avisoDestinatario">Destinatários</label>
-            <select id="avisoDestinatario">
-              <option value="todos">Todos</option>
-              <option value="professor">Professores</option>
-              <option value="aluno">Alunos</option>
-              <option value="responsavel">Responsáveis</option>
-            </select>
-          </div>
-        </div>
-        <p class="field-error" id="formAvisoErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Publicar aviso</button>
-        </footer>
-      </form>
-    </div>
-  </div>
+    </section>
 
-  <div class="modal" id="modalMensagem" role="dialog" aria-modal="true" aria-labelledby="modalMensagemTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalMensagemTitulo">Nova mensagem</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formMensagem" novalidate>
-        <div class="form-grid">
-          <div class="field full"><label for="msgPara">Para *</label><select id="msgPara" required></select></div>
-          <div class="field full"><label for="msgAssunto">Assunto *</label><input type="text" id="msgAssunto" required></div>
-          <div class="field full"><label for="msgTexto">Mensagem *</label><textarea id="msgTexto" rows="4" required></textarea></div>
-        </div>
-        <p class="field-error" id="formMensagemErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Enviar mensagem</button>
-        </footer>
-      </form>
-    </div>
-  </div>
-
-  <div class="modal" id="modalUsuario" role="dialog" aria-modal="true" aria-labelledby="modalUsuarioTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalUsuarioTitulo">Novo usuário</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formUsuario" novalidate>
-        <input type="hidden" id="usuarioId">
-        <div class="form-grid">
-          <div class="field"><label for="usuarioNome">Nome *</label><input type="text" id="usuarioNome" required></div>
-          <div class="field"><label for="usuarioEmail">E-mail *</label><input type="email" id="usuarioEmail" required></div>
-          <div class="field"><label for="usuarioSenha">Senha *</label><input type="password" id="usuarioSenha" required></div>
-          <div class="field"><label for="usuarioPerfil">Perfil *</label>
-            <select id="usuarioPerfil">
-              <option value="administrador">Administrador</option>
-              <option value="professor">Professor</option>
-              <option value="aluno">Aluno</option>
-              <option value="responsavel">Responsável</option>
-            </select>
-          </div>
-          <div class="field full"><label for="usuarioStatus">Status</label>
-            <select id="usuarioStatus"><option value="ativo">Ativo</option><option value="inativo">Inativo</option></select>
-          </div>
-        </div>
-        <p class="field-error" id="formUsuarioErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Salvar usuário</button>
-        </footer>
-      </form>
-    </div>
-  </div>
-
-  <div class="modal" id="modalPerfilAluno" role="dialog" aria-modal="true" aria-labelledby="modalPerfilTitulo">
-    <div class="modal-box modal-lg">
-      <header class="modal-head">
-        <h3 id="modalPerfilTitulo">Perfil do aluno</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <div id="perfilAlunoConteudo"></div>
-      <footer class="modal-foot"><button type="button" class="btn btn-ghost modal-close">Fechar</button></footer>
-    </div>
-  </div>
-
-  <div class="modal" id="modalRecuperar" role="dialog" aria-modal="true" aria-labelledby="modalRecuperarTitulo">
-    <div class="modal-box">
-      <header class="modal-head">
-        <h3 id="modalRecuperarTitulo">Recuperar senha</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <form id="formRecuperar" novalidate>
-        <div class="field">
-          <label for="recuperarEmail">Informe o e-mail cadastrado</label>
-          <input type="email" id="recuperarEmail" placeholder="seu@email.com" required>
-        </div>
-        <p class="field-error" id="formRecuperarErro"></p>
-        <footer class="modal-foot">
-          <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Enviar link de recuperação</button>
-        </footer>
-      </form>
-    </div>
-  </div>
-
-  <div class="modal" id="modalConfirm" role="dialog" aria-modal="true" aria-labelledby="modalConfirmTitulo">
-    <div class="modal-box modal-sm">
-      <header class="modal-head">
-        <h3 id="modalConfirmTitulo">Confirmar exclusão</h3>
-        <button class="icon-btn modal-close" aria-label="Fechar">✕</button>
-      </header>
-      <p id="modalConfirmTexto">Tem certeza que deseja excluir este registro?</p>
-      <footer class="modal-foot">
-        <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
-        <button type="button" class="btn btn-danger" id="confirmarBtn">Excluir</button>
-      </footer>
-    </div>
-  </div>
-
-  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
-
-  <script src="script.js"></script>
 </body>
 </html>
